@@ -1,7 +1,7 @@
 /*
 
 EJERCICIO PLANTILLA - ARREGLOS
-Autor: Jhonatan Torres
+Autor: Gabriel Jose Garcia
 Fecha: 19 de Octubre 2026
 
 
