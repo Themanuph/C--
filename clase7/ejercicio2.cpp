@@ -1,6 +1,6 @@
 /*
 EJERCICIO 2 - BUSQUEDA SECUENCIAL EN ARREGLOS
-Autor: Jhonatan Torres
+Autor: Gabriel Jose Garcia
 Fecha: 19 de Octubre del 2026
 
 Enunciado:
@@ -52,4 +52,34 @@ int main()
     // Pedimos el numero que se desea buscar
     cout << "Ingrese el numero que desea buscar: ";
     cin >> buscado;
+
+    // BUSQUEDA SECUENCIAL
+
+    // Recorrer el arreglo posicion por posicion
+    for (i = 0; i < 6; i++)
+    {
+        // Compraramos si el valor guardad en la posicion i es igual al numero que queremos buscar.
+        if (numeros[i] == buscado && encontrado == false)
+        {
+            // Si conincide, marcamos que si fue encontrado
+            encontrado = true;
+
+            // Guardamos la posicion donde la encontramos
+            posicion = i + 1;
+        }
+    }
+
+    cout << endl;
+
+    // RESULTADO FINAL
+    if (encontrado == true)
+    {
+        cout << "Numero encontrado en la posicion: " << posicion << endl;
+    }
+    else
+    {
+        cout << "Numero no encontrado en el arreglo." << endl;
+    }
+
+    return 0;
 }
