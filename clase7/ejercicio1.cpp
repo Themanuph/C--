@@ -1,6 +1,6 @@
 /*
 EJERCICIO 1 - ARRELGOS 1D: CARGAR Y RECORRIDO
-Autor: Jhonatan Torres
+Autor: Gabriel Jose Garcia
 Fecha: 19 de Octubre del 2026
 
 Enunciado:
@@ -37,7 +37,7 @@ int main()
     // IMPRESION DE DATOS
     for (i = 0; i < 5; i++)
     {
-        cout << "Posicion " << i << ": " << notas[i] << endl;
+        cout << "Posicion " << i + 1 << ": " << notas[i] << endl;
     }
 
     return 0;
