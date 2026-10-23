@@ -1,8 +1,8 @@
 /*
 
-Tarea #4: Números pares hasta N - Ejercicio 1
+Tarea #6: Números pares hasta N - Ejercicio 1
 Autor: Gabriel José García 
-Fecha: 19 Octubre de 2026
+Fecha: 23 Octubre de 2026
 
 Enunciado: Elaborar un programa en C++ que solicite al usuario un número entero positivo N y
 muestre en pantalla todos los números pares desde 1 hasta N.
@@ -51,5 +51,6 @@ int main() {
         
     }
 
+    return 0;
 }
 
