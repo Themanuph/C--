@@ -1,50 +1,77 @@
-# Calculadora y sistema de registro de mascotas
+# 🐾 Calculadora de edad de mascotas
 
-## Descripción
-Este proyecto es un programa desarrollado en C++ que permite registrar y analizar información de perros y gatos. El sistema almacena hasta 20 mascotas y ofrece diferentes opciones para consultar sus datos, generar reportes y calcular su edad equivalente en años humanos.
+## ¿De qué trata el proyecto?
 
-## Datos que maneja
-Por cada mascota se registra:
-- Nombre.
-- Tipo de mascota: perro o gato.
+Este proyecto consiste en un programa hecho en C++ que permite registrar perros y gatos para conocer un poco más sobre su edad y su esperanza de vida.
+
+La idea es que el usuario pueda ingresar los datos de sus mascotas y el programa realice algunos cálculos, como convertir su edad a una edad humana aproximada. También permite guardar varios registros, buscar mascotas y generar un reporte general.
+
+## ¿Qué información se puede registrar?
+
+El programa permite registrar hasta 20 mascotas.
+
+Los datos que se guardan son:
+
+- Nombre de la mascota.
+- Tipo de mascota (perro o gato).
 - Edad actual.
-- Si es perro: peso en kilogramos.
-- Si es gato: condición de vida (interior, con acceso al exterior o callejero).
+- Peso en kg (en el caso de los perros).
+- Condición de vida (en el caso de los gatos).
 
 ## Opciones del menú
-1. **Registrar mascota:** permite guardar los datos de un perro o gato.
-2. **Mostrar mascotas:** presenta todas las mascotas registradas.
-3. **Buscar mascota:** permite encontrar un registro mediante el nombre.
-4. **Reporte general:** muestra la cantidad de mascotas registradas, cuántos perros y gatos hay, y la edad promedio.
-5. **Análisis de edad y longevidad:** calcula la edad equivalente en años humanos y muestra la categoría o condición y la esperanza de vida estimada de cada mascota.
+
+El programa cuenta con 6 opciones principales:
+
+1. **Registrar mascotas:** permite elegir cuántas mascotas se desean registrar y guardar sus datos.
+2. **Mostrar mascotas registradas:** muestra la información de todas las mascotas guardadas.
+3. **Buscar mascota por nombre:** permite buscar una mascota específica mediante su nombre.
+4. **Mostrar reporte general:** muestra la cantidad de perros y gatos registrados, el total de mascotas y la edad promedio.
+5. **Analizar edad y esperanza de vida:** realiza un análisis de cada mascota, mostrando su edad humana aproximada, su categoría y su esperanza de vida estimada.
 6. **Salir:** finaliza el programa.
 
-## Funcionamiento
-El programa utiliza arreglos unidimensionales para almacenar los datos de hasta 20 mascotas. También utiliza funciones para organizar las operaciones, ciclos para recorrer los registros y búsquedas secuenciales para localizar mascotas por su nombre.
-
-Incluye validaciones para evitar datos incorrectos, controlar las opciones del menú y comprobar que existan registros antes de mostrar información o generar reportes.
-
 ## Componente creativo
-El programa realiza un análisis de edad y longevidad de las mascotas registradas. Para los perros, calcula la edad humana aproximada según su peso y tamaño; para los gatos, utiliza una fórmula de conversión y considera su condición de vida. Además, muestra una estimación de su esperanza de vida.
 
-## Compilación y ejecución
+Una de las partes del proyecto es el análisis de edad y esperanza de vida.
 
-Con un compilador de C++ como g++:
+En esta opción, el programa utiliza los datos registrados para calcular la edad humana aproximada de cada mascota. En los perros también toma en cuenta su peso para clasificarlos por tamaño, mientras que en los gatos considera si viven dentro de casa, tienen acceso al exterior o son callejeros.
+
+Con esta información muestra una estimación de su esperanza de vida y algunas recomendaciones generales.
+
+## ¿Qué se utilizó para desarrollar el programa?
+
+Para realizar este proyecto se utilizaron algunos conceptos básicos de C++:
+
+- Arreglos unidimensionales para almacenar los datos.
+- Funciones para organizar las diferentes operaciones.
+- Estructuras condicionales (`if`, `else`).
+- Ciclos (`for`, `while` y `do while`).
+- Estructura `switch` para controlar el menú.
+- Búsqueda secuencial para encontrar mascotas por su nombre.
+- Validaciones para evitar datos incorrectos y superar el límite de 20 registros.
+
+## ¿Cómo ejecutar el programa?
+
+1. Descargar o clonar este repositorio.
+2. Abrir el archivo `main.cpp` en un editor de código.
+3. Compilar el programa con un compilador de C++.
+4. Ejecutarlo desde la terminal.
+
+Por ejemplo, utilizando G++:
 
 ```bash
 g++ main.cpp -o mascotas
 ```
 
-En Windows:
-
-```bash
-mascotas.exe
-```
-
-En Linux:
+Y después:
 
 ```bash
 ./mascotas
+```
+
+En Windows también se puede ejecutar con:
+
+```bash
+mascotas.exe
 ```
 
 ## Autor

@@ -72,304 +72,542 @@ En caso de errores
 #include <iostream>
 #include <string>
 #include <limits>
-
 using namespace std;
 
 const int MAX_MASCOTAS = 20;
-const int edadGatunaLimite = 38;
-const int edadPerrunaLimite = 29;
+const int EDAD_GATUNA_LIMITE = 38;
+const int EDAD_PERRUNA_LIMITE = 29;
 
-void LimpiarEntrada(){
+void LimpiarEntrada() {
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-int LeerEntero(string mensaje, int minimo, int maximo){
+int LeerEntero(const string& mensaje, int minimo, int maximo) {
     int valor;
     cout << mensaje;
-    while (!(cin >> valor) || valor < minimo || valor > maximo){
-        cout << "Opcion o dato invalido. Vuelve a intentarlo: ";
+
+    while (!(cin >> valor) || valor < minimo || valor > maximo) {
+        cout << "Opcion o dato invalido. Ingrese un valor entre "
+            << minimo << " y " << maximo << ": ";
         LimpiarEntrada();
     }
+
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     return valor;
 }
 
-double LeerPeso(){
-    double pesoKg;
-    cout << "---------------------------------- \n"
-        << " Introduce su peso en kg (aprox): \n"
-        << "---------------------------------- \n";
-    while (!(cin >> pesoKg) || pesoKg <= 0){
-        cout << "El peso debe ser mayor a 0 y un valor positivo \n"
-            << "---------------------------------------------- \n"
-            << "Elija de nuevo el peso: \n"
-            << "---------------------------------------------- \n";
+double LeerPeso() {
+    double peso;
+
+    cout << "Ingrese el peso de su perro en kg: ";
+
+    while (!(cin >> peso) || peso <= 0) {
+        cout << "El peso debe ser mayor a 0 y un valor positivo.\n";
+        cout << "Elija de nuevo el peso: ";
         LimpiarEntrada();
     }
+
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    return pesoKg;
+    return peso;
 }
 
-int CalcularEdadHumanaPerro(int edadPerruna, double pesoKg){
-    if (edadPerruna == 1) return 15;
-    if (edadPerruna == 2) return 24;
+int CalcularEdadHumanaPerro(int edad, double peso) {
+    int edadHumana;
 
-    int aniosAdicionales = edadPerruna - 2;
-    if (pesoKg <= 10) return 24 + aniosAdicionales * 4;
-    else if (pesoKg <= 25) return 24 + aniosAdicionales * 5;
-    else if (pesoKg <= 45) return 24 + aniosAdicionales * 6;
-    else return 24 + aniosAdicionales * 7;
-}
-
-int CalcularEdadHumanaGato(int edadGatuna){
-    if (edadGatuna == 1) return 15;
-    if (edadGatuna == 2) return 24;
-    int aniosAdicionalesGato = edadGatuna - 2;
-    return 24 + aniosAdicionalesGato * 4;
-}
-
-string ObtenerTamanoPerro(double pesoKg){
-    if (pesoKg <= 10) return "perro pequeno o miniatura";
-    else if (pesoKg <= 25) return "Perro mediano";
-    else if (pesoKg <= 45) return "Perro grande";
-    else return "Perro gigante";
-}
-
-string ObtenerEsperanzaPerro(double pesoKg){
-    if (pesoKg <= 10) return "Puede que viva de 12 a 17 anios";
-    else if (pesoKg <= 25) return "Puede que viva 10 a 15 anios";
-    else if (pesoKg <= 45) return "Puede que viva de 8 a 13 anios";
-    else return "Viven entre 6 y 11 anios";
-}
-
-string ObtenerCondicionGato(int tipoGato){
-    if (tipoGato == 1) return "Gato de interior";
-    else if (tipoGato == 2) return "Gato con acceso al exterior";
-    else return "Gato callejero";
-}
-
-string ObtenerEsperanzaGato(int tipoGato){
-    if (tipoGato == 1) return "viven entre 12 y 18 anios (o mas)";
-    else if (tipoGato == 2) return "Su expectativa de vida baja a 5 a 12 anios debido a riesgos como atropellos";
-    else return "Su promedio de vida es de 2 a 5 anios por la falta de alimento constante y atencion medica.";
-}
-
-void RegistrarMascota(string nombres[], int tipos[], int edades[], double pesos[], int condiciones[], int &cantidad){
-    if (cantidad >= MAX_MASCOTAS){
-        cout << "Ya llegaste al limite de 20 mascotas, capo.\n";
-        return;
+    if (edad == 1) {
+        return 15;
     }
 
-    string nombre;
-    int tipo, edad;
-    cout << "Nombre de la mascota: ";
-    getline(cin, nombre);
-    while (nombre.empty()){
-        cout << "El nombre no puede estar vacio. Intentalo de nuevo: ";
-        getline(cin, nombre);
+    if (edad == 2) {
+        return 24;
     }
 
-    cout << "1. Perro\n2. Gato\n";
-    tipo = LeerEntero("Elija el tipo de mascota: ", 1, 2);
-
-    if (tipo == 1){
-        cout << "=========================== \n"
-            << "Calculadora de edad perruna \n"
-            << "--------------------------- \n"
-            << "Edad Actual del perro \n";
-        edad = LeerEntero("", 1, edadPerrunaLimite);
-        if (edad == edadPerrunaLimite){
-            cout << "Sabias que el perro mas longevo con un record ampliamente reconocido es Bluey, que vivio 29 a y 5 meses.\n";
-        }
-        double peso = LeerPeso();
-        nombres[cantidad] = nombre;
-        tipos[cantidad] = tipo;
-        edades[cantidad] = edad;
-        pesos[cantidad] = peso;
-        condiciones[cantidad] = 0;
-
-        cout << "------------Tamano-------------\n"
-            << ObtenerTamanoPerro(peso) << "\n"
-            << "-------Esperanza de vida-------\n"
-            << ObtenerEsperanzaPerro(peso) << "\n"
-            << "\n------- Edad equivalente humana -------\n"
-            << "Tu perro tiene aproximadamente "
-            << CalcularEdadHumanaPerro(edad, peso) << " anios humanos.\n";
+    if (peso <= 10) {
+        edadHumana = 24 + (edad - 2) * 4;
+    } else if (peso <= 25) {
+        edadHumana = 24 + (edad - 2) * 5;
+    } else if (peso <= 45) {
+        edadHumana = 24 + (edad - 2) * 6;
     } else {
-        cout << "=========================== \n"
-            << "Calculadora de edad gatuna \n"
-            << "--------------------------- \n"
-            << "Edad Actual del gato: \n";
-        edad = LeerEntero("", 1, edadGatunaLimite);
-        if (edad == edadGatunaLimite){
-            cout << "Creme Puff vivio 38 anios y 3 dias, asi que estas rozando el record conocido de longevidad felina.\n";
-        }
-
-        cout << "\nTipo de gato:\n"
-            << "1. Gato de interior\n"
-            << "2. Gato con acceso al exterior\n"
-            << "3. Gato callejero\n";
-        int condicion = LeerEntero("Elija una opcion: ", 1, 3);
-
-        nombres[cantidad] = nombre;
-        tipos[cantidad] = tipo;
-        edades[cantidad] = edad;
-        pesos[cantidad] = 0;
-        condiciones[cantidad] = condicion;
-
-        cout << "---------------------------------- \n"
-            << ObtenerEsperanzaGato(condicion) << "\n"
-            << "\n------------ Edad equivalente humana ------------\n"
-            << "Tu Gato tiene aproximadamente "
-            << CalcularEdadHumanaGato(edad) << " anios humanos.\n";
+        edadHumana = 24 + (edad - 2) * 7;
     }
 
-    cantidad++;
+    return edadHumana;
+}
+
+int CalcularEdadHumanaGato(int edad) {
+    if (edad == 1) {
+        return 15;
+    }
+
+    if (edad == 2) {
+        return 24;
+    }
+
+    return 24 + (edad - 2) * 4;
+}
+
+string ObtenerTamanoPerro(double peso) {
+    if (peso <= 10) {
+        return "Perro pequeno o miniatura";
+    } else if (peso <= 25) {
+        return "Perro mediano";
+    } else if (peso <= 45) {
+        return "Perro grande";
+    } else {
+        return "Perro gigante";
+    }
+}
+
+string ObtenerEsperanzaPerro(double peso) {
+    if (peso <= 10) {
+        return "12 a 17 anos";
+    } else if (peso <= 25) {
+        return "10 a 15 anos";
+    } else if (peso <= 45) {
+        return "8 a 13 anos";
+    } else {
+        return "6 a 11 anos";
+    }
+}
+
+string ObtenerCondicionGato(int condicion) {
+    if (condicion == 1) {
+        return "Gato de interior";
+    } else if (condicion == 2) {
+        return "Gato con acceso al exterior";
+    } else {
+        return "Gato callejero";
+    }
+}
+
+string ObtenerEsperanzaGato(int condicion) {
+    if (condicion == 1) {
+        return "12 a 18 anos o mas";
+    } else if (condicion == 2) {
+        return "5 a 12 anos";
+    } else {
+        return "2 a 5 anos";
+    }
+}
+
+int CalcularCantidadMascotas(int disponibles) {
+    int cantidadRegistrar;
+
+    cout << "\nCuantas mascotas desea registrar? (1 a "
+    << disponibles << "): ";
+
+    while (!(cin >> cantidadRegistrar) ||
+        cantidadRegistrar < 1 ||
+        cantidadRegistrar > disponibles) {
+
+        cout << "Ingrese una cantidad valida entre 1 y "
+            << disponibles << ": ";
+
+        LimpiarEntrada();
+    }
+
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    return cantidadRegistrar;
+}
+
+void RegistrarUnaMascota(
+    string nombres[],
+    int tipos[],
+    int edades[],
+    double pesos[],
+    int condiciones[],
+    int posicion
+) {
+    int tipo;
+
+    cout << "\nNombre de la mascota: ";
+    getline(cin, nombres[posicion]);
+
+    while (nombres[posicion].empty()) {
+        cout << "El nombre no puede estar vacio. Ingrese nuevamente: ";
+        getline(cin, nombres[posicion]);
+    }
+
+    cout << "\nTipo de mascota:\n";
+    cout << "1. Perro\n";
+    cout << "2. Gato\n";
+
+    tipo = LeerEntero("Seleccione una opcion: ", 1, 2);
+    tipos[posicion] = tipo;
+
+    if (tipo == 1) {
+
+        cout << "\n========== Calculadora de edad perruna ==========\n";
+        cout << "Edad Actual del perro: ";
+
+        while (!(cin >> edades[posicion]) ||
+            edades[posicion] <= 0 ||
+            edades[posicion] > EDAD_PERRUNA_LIMITE) {
+
+            cout << "Te pashaste te pashaste\n";
+            cout << "------------------------------------------------------------ DATASO ------------------------------------------------------------\n";
+            cout << "Sabias que el perro mas longevo con un record ampliamente reconocido es Bluey, que vivio 29 a y 5 meses.\n";
+            cout << "---------------------------------------------------------------------------------------------------------------------------------\n";
+            cout << "Elije una edad creible porfa: ";
+
+            LimpiarEntrada();
+        }
+
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        pesos[posicion] = LeerPeso();
+        condiciones[posicion] = 0;
+
+    } else {
+
+        cout << "\n========== Calculadora de edad gatuna ==========\n";
+        cout << "Edad Actual del gato: ";
+
+        while (!(cin >> edades[posicion]) ||
+            edades[posicion] <= 0 ||
+            edades[posicion] > EDAD_GATUNA_LIMITE) {
+
+            cout << "Te pashaste te pashaste\n";
+            cout << "------------------------------------------------------------ DATASO ------------------------------------------------------------\n";
+            cout << "Creme Puff vivio 38 anios y 3 dias, asi que la edad supera el record conocido de longevidad felina.\n";
+            cout << "---------------------------------------------------------------------------------------------------------------------------------\n";
+            cout << "Introduce de nuevo la edad: ";
+
+            LimpiarEntrada();
+        }
+
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        cout << "\nCondicion del gato:\n";
+        cout << "1. Gato de interior\n";
+        cout << "2. Gato con acceso al exterior\n";
+        cout << "3. Gato callejero\n";
+
+        condiciones[posicion] = LeerEntero("Seleccione una opcion: ", 1, 3);
+
+        pesos[posicion] = 0;
+    }
+
     cout << "\nMascota registrada correctamente.\n";
 }
 
-void MostrarMascotas(string nombres[], int tipos[], int edades[], double pesos[], int condiciones[], int cantidad){
-    if (cantidad == 0){
-        cout << "Todavia no hay mascotas registradas.\n";
+void RegistrarMascotas(
+    string nombres[],
+    int tipos[],
+    int edades[],
+    double pesos[],
+    int condiciones[],
+    int& cantidad
+) {
+    if (cantidad >= MAX_MASCOTAS) {
+        cout << "\nYa llegaste al limite de 20 mascotas.\n";
         return;
     }
 
-    cout << "\n========= MASCOTAS REGISTRADAS =========\n";
-    for (int i = 0; i < cantidad; i++){
-        cout << "\nNombre: " << nombres[i] << "\n";
-        cout << "Tipo: " << (tipos[i] == 1 ? "Perro" : "Gato") << "\n";
-        cout << "Edad: " << edades[i] << " anios\n";
-        if (tipos[i] == 1){
+    int disponibles = MAX_MASCOTAS - cantidad;
+    int cantidadRegistrar = CalcularCantidadMascotas(disponibles);
+
+    for (int i = 0; i < cantidadRegistrar; i++) {
+
+        cout << "\n========= Registro de mascota "
+            << i + 1 << " de " << cantidadRegistrar
+            << " =========\n";
+
+        RegistrarUnaMascota(
+            nombres,
+            tipos,
+            edades,
+            pesos,
+            condiciones,
+            cantidad
+        );
+
+        cantidad++;
+    }
+}
+
+void MostrarMascotas(
+    string nombres[],
+    int tipos[],
+    int edades[],
+    double pesos[],
+    int condiciones[],
+    int cantidad
+) {
+    if (cantidad == 0) {
+        cout << "\nTodavia no hay mascotas registradas.\n";
+        return;
+    }
+
+    cout << "\n========== MASCOTAS REGISTRADAS ==========\n";
+
+    for (int i = 0; i < cantidad; i++) {
+
+        cout << "\nMascota " << i + 1 << ": " << nombres[i] << "\n";
+        cout << "Edad actual: " << edades[i] << " anos\n";
+
+        if (tipos[i] == 1) {
+
+            cout << "Tipo: Perro\n";
             cout << "Peso: " << pesos[i] << " kg\n";
-            cout << "Tamano: " << ObtenerTamanoPerro(pesos[i]) << "\n";
+            cout << "Categoria: " << ObtenerTamanoPerro(pesos[i]) << "\n";
+            cout << "Edad humana aproximada: "
+                << CalcularEdadHumanaPerro(edades[i], pesos[i])
+                << " anos\n";
+            cout << "Esperanza de vida: "
+                << ObtenerEsperanzaPerro(pesos[i]) << "\n";
+
         } else {
-            cout << "Condicion: " << ObtenerCondicionGato(condiciones[i]) << "\n";
+
+            cout << "Tipo: Gato\n";
+            cout << "Condicion: "
+                << ObtenerCondicionGato(condiciones[i]) << "\n";
+            cout << "Edad humana aproximada: "
+                << CalcularEdadHumanaGato(edades[i]) << " anos\n";
+            cout << "Esperanza de vida: "
+                << ObtenerEsperanzaGato(condiciones[i]) << "\n";
         }
     }
 }
 
-int BuscarRegistro(string nombres[], int cantidad, string nombreBuscado){
-    for (int i = 0; i < cantidad; i++){
-        if (nombres[i] == nombreBuscado) return i;
+int BuscarRegistro(
+    string nombres[],
+    int cantidad,
+    string nombreBuscado
+) {
+    for (int i = 0; i < cantidad; i++) {
+
+        if (nombres[i] == nombreBuscado) {
+            return i;
+        }
     }
+
     return -1;
 }
 
-void BuscarMascota(string nombres[], int tipos[], int edades[], double pesos[], int condiciones[], int cantidad){
-    if (cantidad == 0){
-        cout << "Todavia no hay mascotas para buscar.\n";
+void BuscarMascota(
+    string nombres[],
+    int tipos[],
+    int edades[],
+    double pesos[],
+    int condiciones[],
+    int cantidad
+) {
+    if (cantidad == 0) {
+        cout << "\nNo hay mascotas para buscar. Primero registre una.\n";
         return;
     }
 
     string nombreBuscado;
-    cout << "Ingrese el nombre de la mascota que desea buscar: ";
+
+    cout << "\nIngrese el nombre exacto de la mascota: ";
     getline(cin, nombreBuscado);
 
     int posicion = BuscarRegistro(nombres, cantidad, nombreBuscado);
-    if (posicion == -1){
-        cout << "No se encontro una mascota con ese nombre.\n";
+
+    if (posicion == -1) {
+        cout << "\nNo se encontro una mascota con ese nombre.\n";
         return;
     }
 
-    cout << "\nMascota encontrada:\n";
-    cout << "Nombre: " << nombres[posicion] << "\n";
-    cout << "Tipo: " << (tipos[posicion] == 1 ? "Perro" : "Gato") << "\n";
-    cout << "Edad: " << edades[posicion] << " anios\n";
-    if (tipos[posicion] == 1){
+    cout << "\nMascota encontrada: " << nombres[posicion] << "\n";
+    cout << "Edad actual: " << edades[posicion] << " anos\n";
+
+    if (tipos[posicion] == 1) {
+
+        cout << "Tipo: Perro\n";
         cout << "Peso: " << pesos[posicion] << " kg\n";
-        cout << "Tamano: " << ObtenerTamanoPerro(pesos[posicion]) << "\n";
+        cout << "Categoria: " << ObtenerTamanoPerro(pesos[posicion]) << "\n";
+        cout << "Edad humana aproximada: "
+            << CalcularEdadHumanaPerro(edades[posicion], pesos[posicion])
+            << " anos\n";
+        cout << "Esperanza de vida: "
+            << ObtenerEsperanzaPerro(pesos[posicion]) << "\n";
+
     } else {
-        cout << "Condicion: " << ObtenerCondicionGato(condiciones[posicion]) << "\n";
+
+        cout << "Tipo: Gato\n";
+        cout << "Condicion: "
+            << ObtenerCondicionGato(condiciones[posicion]) << "\n";
+        cout << "Edad humana aproximada: "
+            << CalcularEdadHumanaGato(edades[posicion]) << " anos\n";
+        cout << "Esperanza de vida: "
+            << ObtenerEsperanzaGato(condiciones[posicion]) << "\n";
     }
 }
 
-void MostrarReporte(int tipos[], int edades[], int cantidad){
-    if (cantidad == 0){
-        cout << "Todavia no hay datos para generar el reporte.\n";
+void MostrarReporte(int tipos[], int edades[], int cantidad) {
+
+    if (cantidad == 0) {
+        cout << "\nNo hay datos para generar el reporte.\n";
         return;
     }
 
-    int perros = 0, gatos = 0, sumaEdades = 0;
-    for (int i = 0; i < cantidad; i++){
-        if (tipos[i] == 1) perros++;
-        else gatos++;
+    int perros = 0;
+    int gatos = 0;
+    int sumaEdades = 0;
+
+    for (int i = 0; i < cantidad; i++) {
+
+        if (tipos[i] == 1) {
+            perros++;
+        } else {
+            gatos++;
+        }
+
         sumaEdades += edades[i];
     }
 
-    cout << "\n========= REPORTE GENERAL =========\n";
-    cout << "Mascotas registradas: " << cantidad << "\n";
+    double promedio = static_cast<double>(sumaEdades) / cantidad;
+
+    cout << "\n========== REPORTE GENERAL ==========\n";
+    cout << "Total de mascotas: " << cantidad << "\n";
     cout << "Cantidad de perros: " << perros << "\n";
     cout << "Cantidad de gatos: " << gatos << "\n";
-    cout << "Edad promedio de las mascotas: "
-        << static_cast<double>(sumaEdades) / cantidad << " anios\n";
+    cout << "Edad promedio de las mascotas: " << promedio << " anos\n";
 }
 
-void ComponenteCreativo(string nombres[], int tipos[], int edades[], double pesos[], int condiciones[], int cantidad){
-    if (cantidad == 0){
-        cout << "Todavia no hay mascotas para analizar.\n";
+void ComponenteCreativo(
+    string nombres[],
+    int tipos[],
+    int edades[],
+    double pesos[],
+    int condiciones[],
+    int cantidad
+) {
+    if (cantidad == 0) {
+        cout << "\nNo hay mascotas registradas para realizar el analisis.\n";
         return;
     }
 
-    cout << "\n========= ANALISIS DE EDAD Y LONGEVIDAD =========\n";
-    for (int i = 0; i < cantidad; i++){
-        cout << "\nMascota: " << nombres[i] << "\n";
-        if (tipos[i] == 1){
-            cout << "Edad equivalente: "
-                << CalcularEdadHumanaPerro(edades[i], pesos[i]) << " anios humanos\n";
-            cout << "Categoria: " << ObtenerTamanoPerro(pesos[i]) << "\n";
-            cout << "Esperanza de vida estimada: " << ObtenerEsperanzaPerro(pesos[i]) << "\n";
+    cout << "\n========== ANALISIS DE EDAD Y EXPECTATIVA ==========\n";
+
+    for (int i = 0; i < cantidad; i++) {
+
+        cout << "\nAnalisis de " << nombres[i] << ":\n";
+
+        if (tipos[i] == 1) {
+
+            int edadHumana = CalcularEdadHumanaPerro(edades[i], pesos[i]);
+
+            cout << "Equivale aproximadamente a "
+                << edadHumana << " anos humanos.\n";
+
+            cout << "Por su peso, se clasifica como: "
+                << ObtenerTamanoPerro(pesos[i]) << ".\n";
+
+            cout << "Su esperanza de vida estimada es de "
+                << ObtenerEsperanzaPerro(pesos[i]) << ".\n";
+
+            if (edadHumana >= 70) {
+                cout << "Recomendacion: prestale especial atencion a sus controles veterinarios.\n";
+            } else {
+                cout << "Recomendacion: manten sus controles y actividad adecuados para su edad.\n";
+            }
+
         } else {
-            cout << "Edad equivalente: "
-                << CalcularEdadHumanaGato(edades[i]) << " anios humanos\n";
-            cout << "Condicion: " << ObtenerCondicionGato(condiciones[i]) << "\n";
-            cout << "Esperanza de vida estimada: " << ObtenerEsperanzaGato(condiciones[i]) << "\n";
+
+            int edadHumana = CalcularEdadHumanaGato(edades[i]);
+
+            cout << "Equivale aproximadamente a "
+                << edadHumana << " anos humanos.\n";
+
+            cout << "Condicion: "
+                << ObtenerCondicionGato(condiciones[i]) << ".\n";
+
+            cout << "Su esperanza de vida estimada es de "
+                << ObtenerEsperanzaGato(condiciones[i]) << ".\n";
+
+            if (condiciones[i] == 3) {
+                cout << "Recomendacion: si es posible, busca apoyo para mejorar su alimentacion y atencion veterinaria.\n";
+            } else {
+                cout << "Recomendacion: manten sus controles veterinarios y un entorno seguro.\n";
+            }
         }
     }
 }
 
-int main(){
-    double pesos[MAX_MASCOTAS] = {};
-    int opcion = 0;
-    int tipos[MAX_MASCOTAS] = {};
-    int edades[MAX_MASCOTAS] = {};
-    int condiciones[MAX_MASCOTAS] = {};
+int main() {
+
     string nombres[MAX_MASCOTAS];
+    int tipos[MAX_MASCOTAS];
+    int edades[MAX_MASCOTAS];
+    double pesos[MAX_MASCOTAS];
+    int condiciones[MAX_MASCOTAS];
+
     int cantidad = 0;
+    int opcion = 0;
 
-    do{
-        cout
-        << "                                    \n"
-        << "\n========= MENU PRINCIPAL =========\n"
-        << "1. Registrar mascota.\n"
-        << "2. Mostrar mascotas registradas.\n"
-        << "3. Buscar mascota.\n"
-        << "4. Mostrar reporte general.\n"
-        << "5. Analizar edad perruna y gatuna.\n"
-        << "6. Salir.\n";
+    do {
 
-        opcion = LeerEntero("Elija una opcion: ", 1, 6);
+        cout << "\n================ MENU PRINCIPAL ================\n";
+        cout << "1. Registrar mascotas\n";
+        cout << "2. Mostrar mascotas registradas\n";
+        cout << "3. Buscar mascota por nombre\n";
+        cout << "4. Mostrar reporte general\n";
+        cout << "5. Analizar edad y esperanza de vida\n";
+        cout << "6. Salir\n";
 
-        switch (opcion){
+        opcion = LeerEntero("Seleccione una opcion (1-6): ", 1, 6);
+
+        switch (opcion) {
+
             case 1:
-                RegistrarMascota(nombres, tipos, edades, pesos, condiciones, cantidad);
+                RegistrarMascotas(
+                    nombres,
+                    tipos,
+                    edades,
+                    pesos,
+                    condiciones,
+                    cantidad
+                );
                 break;
+
             case 2:
-                MostrarMascotas(nombres, tipos, edades, pesos, condiciones, cantidad);
+                MostrarMascotas(
+                    nombres,
+                    tipos,
+                    edades,
+                    pesos,
+                    condiciones,
+                    cantidad
+                );
                 break;
+
             case 3:
-                BuscarMascota(nombres, tipos, edades, pesos, condiciones, cantidad);
+                BuscarMascota(
+                    nombres,
+                    tipos,
+                    edades,
+                    pesos,
+                    condiciones,
+                    cantidad
+                );
                 break;
+
             case 4:
                 MostrarReporte(tipos, edades, cantidad);
                 break;
+
             case 5:
-                ComponenteCreativo(nombres, tipos, edades, pesos, condiciones, cantidad);
+                ComponenteCreativo(
+                    nombres,
+                    tipos,
+                    edades,
+                    pesos,
+                    condiciones,
+                    cantidad
+                );
                 break;
+
             case 6:
-                cout << "Gracias por usar la calculadora de mascotas. Hasta la proxima, capo.\n";
+                cout << "\nGracias por utilizar el programa. Hasta luego!\n";
                 break;
         }
+
     } while (opcion != 6);
 
     return 0;
