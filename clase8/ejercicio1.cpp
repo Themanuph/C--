@@ -42,7 +42,7 @@ int main()
     for (i = 0; i < 6; i++)
     {
         // Mostramos la posicion y el valor guardado en esa posicion
-        cout << "Posicion" << i << ": " << precios[i] << endl;
+        cout << "Posicion " << i + 1 << ": " << precios[i] << endl;
     }
 
     cout << endl;
@@ -67,12 +67,13 @@ int main()
     // PASO 5: MOSTRAR EL RESAULTADOP DE LA BUSQUEDA
     if (encontrado == true)
     {
-        cout << "Precio encontrado en la posicion: " << posicion << endl;
+        cout << "Precio encontrado en la posicion: " << posicion + 1 << endl;
     }
     else
     {
         cout << "Precio no fue encontrado en el arreglo." << endl;
     }
 
+    return 0;
     // PASO 1: CARGAR LOS PRECIO EN EL ARREGLO
 }

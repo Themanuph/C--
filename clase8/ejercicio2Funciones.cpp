@@ -46,7 +46,7 @@ int main()
 
     aumentar(a);
 
-    cout << "Fiera de la funcion, a vale: " << a << endl;
+    cout << "Fuera de la funcion, a vale: " << a << endl;
 
     return 0;
 }
